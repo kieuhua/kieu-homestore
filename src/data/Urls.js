@@ -2,7 +2,7 @@ import {DataTypes} from "./Types";
 // requires diff URLs for production and development
 const protocol = "http";
 const hostname = "localhost";
-const port = 3500;
+const port = 3600;
 
 // new data type allow new URLs
 export const RestUrls = {

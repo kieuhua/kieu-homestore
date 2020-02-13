@@ -1,4 +1,9 @@
 import {createStore } from "redux"
-import { ShopReducer} from "./ShopReducer"
+import { CartReducer} from "./CartReducer"
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
-export const HomeStoreDataStore = createStore(ShopReducer)
+//let newStore = { cart: [], cartItems: 0, cartPrice: 0, ...storeData}
+
+export const HomeStore = createStore(CartReducer,devToolsEnhancer()
+    
+    )
