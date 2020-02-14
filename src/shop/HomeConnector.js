@@ -5,6 +5,7 @@ import {ProductsTable} from "./ProductsTable"
 
 import {CartDetails} from "./CartDetails"
 import * as CartActions from "../data/CartActionCreators"
+import {Checkout} from "./Checkout"
 
 import {HomeStore} from "../data/DataStore"
 
@@ -53,6 +54,7 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
                 />
                 <Route path="/shop/cart" render= {(routeProps) => 
                         <CartDetails {...this.props} {...routeProps} cart={ this.props.newStore} updateCartQuantity={ CartActions.updateCartQuantity}   />  } /> 
+                <Route path="/shop/checkout" render={routeProps => <Checkout newStore={this.props.newStore} {...this.props} {...routeProps } /> } />
                 <Redirect to="/shop/products" />
                     
                 </Router>

@@ -5,6 +5,10 @@ export class PaginationButtons extends Component {
     // source
     getPageNumbers = () => {
         if (this.props.pageCount < 4) {
+            /* k you want start page number 1 not 0
+            kwys() => index , then you only take the array start at 1
+            => [1,2,3]
+            */
             return [...Array(this.props.pageCount + 1).keys()].slice(1);
         } else if (this.props.currentPage <= 4) {     
             return [1, 2, 3, 4, 5];
