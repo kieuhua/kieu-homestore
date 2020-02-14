@@ -1,6 +1,9 @@
 import React, {Component} from "react"
 import {ValidatedForm} from "../forms/ValidatedForm"
 
+import {Mutation} from "react-apollo"
+import {storeOrder} from "./clientMutations"
+
 /*
 <Checkout> uses a <ValidatedForm> to present the user with fields 
 for their name, email, address. Each form elem will be created with 
@@ -23,6 +26,7 @@ export class Checkout extends Component {
             {label: "Zip/Postal Code", name: "zip"},
             {label: "Country"}
         ]
+        this.mutation = storeOrder;
     }
 
      /* handleSubmit() will be invoked when the user submits valid form data.
@@ -30,25 +34,40 @@ export class Checkout extends Component {
     before calling placeOrder and clearCart action creators and 
     then navigating toe /shop/thanks URL
     */
+   // k formData is passed from <ValidatedForm>
+   // this.props.submitCallback(data);
+
+   /*
    handleSubmit = (formData) => {
-       console.log("Checkout handleSubmit 1: " + JSON.stringify(formData))
-      // Checkout handleSubmit 1: {"name":"Kieu Hua","email":"kieu.hua@gmail.com",
-      //"address":"77 Strawberry Hill Road","city":"Acton","zip":"01720","country":"United States"}
-       console.log("Checkout handleSubmit 2: " + JSON.stringify(this.props.newStore.cart))
-       //Checkout handleSubmit 2: [{"product":{"id":"1","name":"Handcrafted Plastic Shirt","category":"Chess","price":148,
-       //"description":"Chess: Nihil non nulla.","__typename":"product"},"quantity":1}]
        const order = {...formData,
-            products: this.props.newStore.cart.map(item => ({ quantity: item.quantity, product_id: item.product_id}))}
+            products: this.props.newStore.cart.map(item => ({ quantity: item.quantity, product_id: item.product.id}))}
+    
+        console.log("Checkout handleSubmit order 2 " +  JSON.stringify(order))  // undefined
+        //Checkout handleSubmit order 2 {"name":"Kieu Hua","email":"kieu.hua@gmail.com",
+        //"address":"77 Strawberry Hill Road","city":"Acton","zip":"01720","country":"United States",
+        //"products":[{"quantity":1,"product_id":"4"}]}
+
+        saveMutation({variables: { product: 
+            { ...data, price: Number(data.price) }}});
+
        // this.props.placeOrder(order)
        // this.props.clearCart()
        // this.props.histoory.push("/shop/thanks")
-   }
+
+
+   } */
 
    handleCancel = () => {
-       this.props.histoory.push("/shop/cart")
+       this.props.history.push("/shop/cart")
    }
 
+   navigate = () => this.props.history.push("/shop/thanks");
+
+
    render() {
+       /*
+        k saveMutation() is where we save the order to the server
+       */
        return <div className="container-fluid">
             <div className="row">
                 <div className="col bg-dark text-white">
@@ -57,14 +76,25 @@ export class Checkout extends Component {
             </div>
             <div className="row">
                 <div className="col m-2">
-                    <ValidatedForm
-                        formModel= {this.formModel}     // in constructor just local variable
-                        defaultAttrs = {this.defaultAttrs}
-                        submitCallback = {this.handleSubmit}
-                        cancelCallback = {this.handleCancel}
-                        submitText = "Place Order"
-                        cancelText = "Return to Cart"
-                    />
+                    <Mutation mutation={this.mutation}>
+                        { (saveMutation, {client}) => {
+                        
+                            return <ValidatedForm
+                                formModel= {this.formModel}     // in constructor just local variable
+                                defaultAttrs = {this.defaultAttrs}
+                                submitCallback = { data => {
+                                    //const data_1 = this.convertData(data)
+                                   const result = saveMutation({variables: { order:  data }})
+                                   console.log("Checkout 1: " + JSON.stringify(result ))
+                                    this.navigate()
+                                }}
+                                cancelCallback = {this.handleCancel}
+                                submitText = "Place Order"
+                                cancelText = "Return to Cart"
+                                />
+                            }
+                        }
+                    </Mutation>
                 </div>
             </div>
        </div>

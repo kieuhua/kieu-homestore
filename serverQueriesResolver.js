@@ -63,5 +63,7 @@ const orders = ({onlyUnshipped = false}, {db}) => ({
         orders: (...args) => resolveOrders(onlyUnshipped, ...args)
 })
 
+//const product = ({id}, {db}) => db.get("products").getById(id).value()
+const order = ({id}, {db}) => db.get("orders").getById(id).value()
 
-module.exports = { product, products, categories, orders}
+module.exports = { product, products, categories, orders, order}

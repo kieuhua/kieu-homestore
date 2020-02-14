@@ -1,9 +1,14 @@
 input productStore {name: String!, description: String!, category: String!, price: Float!}
 input productUpdate {id: ID!, name: String, description: String, category: String, price: Float}
 
-type Mutaion {
+input productSelection2 { quantity: Int!, product_id: Int!  }    
+input orderStore { name: String!, email: String!, address: String!, city: String!,
+    zip: String!, country: String!, shipped: Boolean, products: [productSelection2]   }
+
+type Mutation {
     storeProduct(product: productStore): product
     updateProduct(product: productUpdate): product
     deleteProduct(id: ID!): product
     shipOrder(id: ID!, shipped: Boolean!): order
+    storeOrder(order: orderStore): order
 }
