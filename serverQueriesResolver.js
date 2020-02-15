@@ -1,4 +1,4 @@
-/*
+/* kieu
     let query = db.get ('products') => is array of all products 
     so drop() and take() seems to be database functions in json-server ??
     but I can't find any info about these two methods
@@ -23,12 +23,17 @@ const products = ({category}, {db}) => ({
         .filter(p => category ? new RegExp(category, 'i').test(p.category) : p )
         .size().value(),
     products: ({page, pageSize, sort}) => {
-        let query = db.get("products");
+        let query = db.get("products");     // get all products =503
          // if category define, only query product is matched category
          if (category) {
              query = query.filter(item => new RegExp(category, "i").test(item.category))
          }
-         if (sort) { query.orderBy(sort)}
+        if (sort) { 
+            query = query.orderBy(sort)         // query here is all products, didn't work
+            console.log("serverQueriesResolver 1: " + sort)     //serverQueriesResolver 1: name
+            //console.log("serverQueriesResolver 2: " + JSON.stringify(query) )    //[{product}]
+            // but I can't get query[0] => undefined ??
+        }
          return paginateQuery(query, page, pageSize).value()
     }
 

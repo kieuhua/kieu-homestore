@@ -7,6 +7,7 @@ export class PaginationControls extends Component {
         super(props);
         this.pageSizes = this.props.sizes || [5, 10, 25, 100];
         this.sortKeys = this.props.keys || ["Name", "Price"];
+        //this.sortKeys = this.props.keys || ["name", "nrice"];   // no diff
     }
 
     handlePageSizeChange = (ev) => {

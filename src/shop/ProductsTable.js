@@ -16,6 +16,8 @@ export class ProductsTable extends Component {
         this.props.history.push("/shop/cart")
         //console.log("productsTable: " + this.props.history.length)  // => 13
     }
+
+    
     render = () => 
         <div>
             <h4 className="bg-info text-white text-center p-2">{this.props.totalSize} Products</h4>

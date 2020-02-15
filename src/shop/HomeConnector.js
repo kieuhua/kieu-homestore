@@ -42,7 +42,16 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
         addToCart(...args) {
            HomeStore.dispatch(CartActions.addToCart(args))  // this works
         }
+
+        //navigateToPage = (page) => this.props.history.push(`/shop/products/${this.props.match.params.category}/${page}`)
+        //navigateToPage = (page) => this.routeProps.history.push(`/shop/products/${this.props.match.params.category}/${page}`)
+
+        navigateToPage = () => {"hi kieu"}
         render() {
+            // check for pageSize here
+            console.log("HomeConnector pagesize 1: " + this.props.pageSize)     //HomeConnector pagesize 1: 25
+            console.log("HomeConnector pagesize 2: " + this.props.sortKey)     //HomeConnector pagesize 2: name
+
             return <div>
                 <Router>
                 <Route path="/shop/products:category?"

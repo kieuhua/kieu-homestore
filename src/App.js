@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 
 //import './App.css';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom"
-import  {ProductsConnector}  from "./shop/ProductsConnector"
+//import  {ProductsConnector}  from "./shop/ProductsConnector"
 import {withRouter} from "react-router-dom"
 import {ProductsApollo} from "./shop/ProductsApollo"
 

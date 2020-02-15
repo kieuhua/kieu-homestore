@@ -11,7 +11,7 @@ export class ProductsApollo extends Component {
     }
     render() {
         return <ApolloProvider client={this.client}>
-           <ProductsConnector  store = {this.props.store} />
+           <ProductsConnector  store = {this.props.store}   />
         </ApolloProvider>
     }
 }
