@@ -19,6 +19,7 @@ export class PaginationControls extends Component {
     }
 
     render() {
+        console.log("PaginationControls pageCount: " + this.props.pageCount)
         return <div className="m-2">
                 <div className="text-center m-1">            
                     <PaginationButtons currentPage={this.props.currentPage} 

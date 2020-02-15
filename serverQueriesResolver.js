@@ -4,8 +4,21 @@
     but I can't find any info about these two methods
     drop() and take() are not JS array functions
 */
-const paginateQuery = (query, page=1, pageSize=5) => 
-    query.drop((page-1) * pageSize).take(pageSize);
+//const paginateQuery = (query, page=1, pageSize=5) => {
+const paginateQuery = (query, page=1, pageSize=5) => {
+    console.log("serverQueriesResolver page, pageSize 4: " + page + ", pageSize: " +pageSize)    
+    //serverQueriesResolver page, pageSize 3: 4, pageSize: 25
+    //serverQueriesResolver page, pageSize 3: 5, pageSize: 25
+    //serverQueriesResolver page, pageSize 3: 1, pageSize: 10
+
+    //console.log("serverQueriesResolver query 5: " + JSON.stringify(query))    // all products
+    //const page2 = page - 1
+    //console.log("serverQueriesResolver page, pageSize 5: " + page + ", pageSize: " +pageSize)    
+    const result = query.drop((page ) * pageSize).take(pageSize);
+    console.log("serverQueriesResolver result 5: " + JSON.stringify(result))    
+    return result
+    //return query.drop((page2 -1) * pageSize).take(pageSize);
+}
 
 const product = ({id}, {db}) => db.get("products").getById(id).value()
 
@@ -29,11 +42,9 @@ const products = ({category}, {db}) => ({
              query = query.filter(item => new RegExp(category, "i").test(item.category))
          }
         if (sort) { 
-            query = query.orderBy(sort)         // query here is all products, didn't work
-            console.log("serverQueriesResolver 1: " + sort)     //serverQueriesResolver 1: name
-            //console.log("serverQueriesResolver 2: " + JSON.stringify(query) )    //[{product}]
-            // but I can't get query[0] => undefined ??
+            query = query.orderBy(sort)        
         }
+        console.log("serverQueriesResolver page, pageSize 3: " + page + ", pageSize: " +pageSize)    
          return paginateQuery(query, page, pageSize).value()
     }
 

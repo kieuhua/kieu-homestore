@@ -18,8 +18,10 @@ export class ProductsTable extends Component {
     }
 
     
-    render = () => 
-        <div>
+    render = () => {
+        console.log("ProductsTable currentPage pageCount 1: " + this.props.currentPage + ", pageCount: " + this.props.pageCount)
+        console.log("ProductsTable products 2: " + JSON.stringify(this.props.products[0]))
+        return <div>
             <h4 className="bg-info text-white text-center p-2">{this.props.totalSize} Products</h4>
             <PaginationControls keys={["ID", "Name", "Category"]} { ...this.props }/>
             <table className="table table-sm table-stripped">
@@ -35,4 +37,5 @@ export class ProductsTable extends Component {
             </table>
           
         </div>
+                    }
 }

@@ -5,7 +5,8 @@ import {HomeConnector} from "./HomeConnector"
 
 //import { withRouter} from "react-router-dom"
 
-const vars = {page:1, pageSize: 10, sort: "id"}
+let vars = {page: 1, pageSize: 10, sort: "id"}
+//const vars = {page: 6, pageSize: 10, sort: "id"} //=> error
 //const vars1 = {page:1, pageSize: 10, sort: "id", category: "Chess"}
 
 // graphql(queryname, config obj)
@@ -18,7 +19,7 @@ export const ProductsConnector = compose(
             products: loading ? [] : products.products,
             currentPage: vars.page,
             pageCount: loading ? 0 : Math.ceil(products.totalSize / vars.pageSize),
-            navigateToPage: (page) => { vars.page = Number(page); refetch(vars)},
+            navigateToPage: (page) => { vars.page = page; refetch(vars)},
             pageSize: vars.pageSize,
             setPageSize: (size) => { vars.pageSize = Number(size); refetch(vars)},
             sortKey: vars.sort,

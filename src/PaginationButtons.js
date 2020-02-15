@@ -9,7 +9,7 @@ export class PaginationButtons extends Component {
             kwys() => index , then you only take the array start at 1
             => [1,2,3]
             */
-            return [...Array(this.props.pageCount + 1).keys()].slice(1);
+            return [...Array(this.props.pageCount + 1).keys()].slice(1);  
         } else if (this.props.currentPage <= 4) {     
             return [1, 2, 3, 4, 5];
         } else  if (this.props.currentPage > this.props.pageCount - 4) {
@@ -26,17 +26,19 @@ export class PaginationButtons extends Component {
             const pageCount = this.props.pageCount;
             const navigate = this.props.navigate;
             
+            console.log("PaginationButton current: " + current)     // 7
+
             return <React.Fragment>
             <button onClick={ () => navigate(current - 1)} 
             disabled={current === 1}  className="btn btn-secondary mx-1">Previous</button>
             {/* if current=1, then disable Previous button */}
             {/* if current is greater 4, then generate button='1' and '...'*/}
             { current > 4 &&
-                <React.Fragement>
-                <button onClick={() => navigate(1)} 
-                className="btn btn-secondary mx-1" >1</button>
-                <span>...</span>
-                </React.Fragement>
+                <>
+                <button className="btn btn-secondary mx-1" 
+                    onClick={ () => navigate(1)}>1</button>
+                <span className="h4">...</span>
+                </>
             }
             {/* if not sure ???*/}
             {this.getPageNumbers().map(num =>

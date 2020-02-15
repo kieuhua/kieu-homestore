@@ -45,15 +45,16 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
 
         render() {
             // check for pageSize here
-            //console.log("HomeConnector pagesize 1: " + this.props.pageSize)     //HomeConnector pagesize 1: 25
-            //console.log("HomeConnector pagesize 2: " + this.props.sortKey)     //HomeConnector pagesize 2: name
+            console.log("HomeConnector currentPage 1: " + this.props.currentPage)     // 5
+            console.log("HomeConnector pageCount 1: " + this.props.pageCount)     // 5
+            //console.log("HomeConnector products 2: " + this.props.products)     // no products when page = 5
 
             return <div>
                 <Router>
                 <Route path="/shop/products:category?"
                     render={(routeProps) => 
                         <ProductsTable {...this.props} {...routeProps}  navigateToPage= {this.props.navigateToPage}
-                            pageCount={this.props.totalSize} addToCart = {this.addToCart}
+                            pageCount={this.props.pageCount} addToCart = {this.addToCart}
                             products= {filterProducts(this.props.products, routeProps.match.params.category) }
                         />
                     }
