@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 
 export class PaginationButtons extends Component {
-    
-    // source
+
+    // k this re adjust the page number starting from 1 instead of 0
     getPageNumbers = () => {
         if (this.props.pageCount < 4) {
             /* k you want start page number 1 not 0
