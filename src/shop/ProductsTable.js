@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {PaginationControls} from "../PaginationControls";
 import { ProductsRow} from "./ProductsRow";
+import { CategoryNavigation } from "./CategoryNavigation";
 
 //.p-2 	 classes that set padding
 export class ProductsTable extends Component {
@@ -19,23 +20,37 @@ export class ProductsTable extends Component {
 
     
     render = () => {
-        console.log("ProductsTable currentPage pageCount 1: " + this.props.currentPage + ", pageCount: " + this.props.pageCount)
-        console.log("ProductsTable products 2: " + JSON.stringify(this.props.products[0]))
-        return <div>
-            <h4 className="bg-info text-white text-center p-2">{this.props.totalSize} Products</h4>
-            <PaginationControls keys={["ID", "Name", "Category"]} { ...this.props }/>
-            <table className="table table-sm table-stripped">
-                <thead>
-                    <th>Name</th><th>Description</th><th>Category</th>
-                    <th className="text-right">Price</th><th className="text-center"></th>
-                </thead>
-                <tbody>
-                    {this.props.products.map( prod =>
-                        <ProductsRow key={prod.id} product={prod} addToCart={this.handleAddToCart} />
-                    )}
-                </tbody>
-            </table>
-          
+        return <div className="container-fluid">
+            <div className="row">
+                <div className="col bg-info text-white">
+                    <div className="navbar-brand">Kieu HOME STORE</div>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-3 p-2">
+                    <CategoryNavigation baseUrl="/shop/products" categories={this.props.categories} />
+                </div>
+                <div className="col-9 p-2">
+                    <div>
+                    <PaginationControls keys={["ID", "Name", "Category"]} { ...this.props }/>
+                    </div>
+
+                    <table className="table table-sm table-stripped">
+                        <thead>
+                            <tr>
+                            <th>Name</th><th>Description</th><th>Category</th>
+                            <th className="text-right">Price</th><th className="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.products.map( prod =>
+                                <ProductsRow key={prod.id} product={prod} addToCart={this.handleAddToCart} />
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-                    }
+    }
 }

@@ -3,11 +3,8 @@ import * as compose from "lodash.flowright"
 import { productsList, categoryList, productsTotal} from "./clientQueries"
 import {HomeConnector} from "./HomeConnector"
 
-//import { withRouter} from "react-router-dom"
-
-let vars = {page: 1, pageSize: 10, sort: "id"}
-//const vars = {page: 6, pageSize: 10, sort: "id"} //=> error
-//const vars1 = {page:1, pageSize: 10, sort: "id", category: "Chess"}
+//let vars = {page: 1, pageSize: 10, sort: "id"}
+let vars = {page: 1, pageSize: 10, sort: "id", catogory: "All"}
 
 // graphql(queryname, config obj)
 export const ProductsConnector = compose(
@@ -24,8 +21,10 @@ export const ProductsConnector = compose(
             setPageSize: (size) => { vars.pageSize = Number(size); refetch(vars)},
             sortKey: vars.sort,
             setSortProperty: (key) => {vars.sort =key; refetch(vars)},
+            category: vars.category
         })
     }),
+
     
     graphql( categoryList, {props: ({data: {categories }}) => ( {categories: categories} ) }),
    

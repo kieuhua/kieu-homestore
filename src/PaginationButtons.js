@@ -26,7 +26,7 @@ export class PaginationButtons extends Component {
             const pageCount = this.props.pageCount;
             const navigate = this.props.navigate;
             
-            console.log("PaginationButton current: " + current)     // 7
+           // console.log("PaginationButton current: " + current)     // 7
 
             return <React.Fragment>
             <button onClick={ () => navigate(current - 1)} 

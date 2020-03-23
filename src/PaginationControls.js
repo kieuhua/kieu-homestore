@@ -6,12 +6,14 @@ export class PaginationControls extends Component {
     constructor(props) {
         super(props);
         this.pageSizes = this.props.sizes || [5, 10, 25, 100];
+        //this.state = { pageSizes : this.props.pageSize || [ 5, 10,25, 100]}
         this.sortKeys = this.props.keys || ["Name", "Price"];
         //this.sortKeys = this.props.keys || ["name", "nrice"];   // no diff
     }
 
     handlePageSizeChange = (ev) => {
         this.props.setPageSize(ev.target.value);
+        this.setState( {pageSizes: ev.target.value})  // this doesn't have no change in pageSize of category
     }
 
     handleSortPropertyChange = (ev) => { 
@@ -19,7 +21,7 @@ export class PaginationControls extends Component {
     }
 
     render() {
-        console.log("PaginationControls pageCount: " + this.props.pageCount)
+       // console.log("PaginationControls pageCount: " + this.props.pageCount)
         return <div className="m-2">
                 <div className="text-center m-1">            
                     <PaginationButtons currentPage={this.props.currentPage} 

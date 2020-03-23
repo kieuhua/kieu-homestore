@@ -18,5 +18,6 @@ type Query {
     orders(onlyUnshipped: Boolean): orderPage
     productsTotal: Int
     order(id: ID!): order
+    productsCategory(category: String, sort:String, page: Int, pageSize: Int): productPage
 }
 

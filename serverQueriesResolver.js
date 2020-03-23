@@ -6,7 +6,7 @@
 */
 //const paginateQuery = (query, page=1, pageSize=5) => {
 const paginateQuery = (query, page=1, pageSize=5) => {
-    console.log("serverQueriesResolver page, pageSize 4: " + page + ", pageSize: " +pageSize)    
+    //console.log("serverQueriesResolver page, pageSize 4: " + page + ", pageSize: " +pageSize)    
     //serverQueriesResolver page, pageSize 3: 4, pageSize: 25
     //serverQueriesResolver page, pageSize 3: 5, pageSize: 25
     //serverQueriesResolver page, pageSize 3: 1, pageSize: 10
@@ -15,7 +15,7 @@ const paginateQuery = (query, page=1, pageSize=5) => {
     //const page2 = page - 1
     //console.log("serverQueriesResolver page, pageSize 5: " + page + ", pageSize: " +pageSize)    
     const result = query.drop((page ) * pageSize).take(pageSize);
-    console.log("serverQueriesResolver result 5: " + JSON.stringify(result))    
+   // console.log("serverQueriesResolver result 5: " + JSON.stringify(result))    
     return result
     //return query.drop((page2 -1) * pageSize).take(pageSize);
 }
@@ -31,7 +31,8 @@ const product = ({id}, {db}) => db.get("products").getById(id).value()
 /* 
     let query = db.get ('products') => is array of all products 
 */
-const products = ({category}, {db}) => ({
+const products = ({category}, {db}) => {
+    let obj = {
     totalSize: () => db.get('products')
         .filter(p => category ? new RegExp(category, 'i').test(p.category) : p )
         .size().value(),
@@ -44,10 +45,46 @@ const products = ({category}, {db}) => ({
         if (sort) { 
             query = query.orderBy(sort)        
         }
-        console.log("serverQueriesResolver page, pageSize 3: " + page + ", pageSize: " +pageSize)    
+        //console.log("serverQueriesResolver:products: category: " + category + " page: " + page + ", pageSize: " + pageSize)    
          return paginateQuery(query, page, pageSize).value()
     }
 
+    }
+   // console.log("serverQueriesResolver:products: totalSize: " + obj.totalSize())
+    //console.log("serverQueriesResolver:products: size: " + obj.products())
+    return obj
+}
+
+const productsCategory= ({category}, {db}) => ({
+    
+    totalSize: () => {
+        //console.log("category 2 : " + JSON.stringify(category)) // undefined
+
+        const result = db.get('products') 
+       // console.log("server result: " + result.size())
+
+        const result2 = result.filter(p => category ? new RegExp(category, 'i').test(p.category) : p ) 
+       // console.log("server result2: " + result2.size())
+        const result3 = result2.size().value()
+       // console.log("server totalSize: " + result3)
+        return result3
+        },
+    products: ({ page, pageSize, sort}) => {
+            let query = db.get("products");     // get all products =503
+             // if category define, only query product is matched category
+             if (category) {
+                 query = query.filter(item => new RegExp(category, "i").test(item.category))
+                // console.log("server query: " + JSON.stringify(query))
+                //console.log("category: " + category)
+             }
+            if (sort) { 
+                query = query.orderBy(sort)        
+            }
+            //console.log("serverQueriesResolver:productsCategory: " + page + ", pageSize: " +pageSize)    
+            //console.log("server query: " + JSON.stringify(query))
+    
+             return paginateQuery(query, page, pageSize).value()
+        }
 })
 
 const categories = (args, {db}) => db.get('categories').value()
@@ -82,4 +119,4 @@ const orders = ({onlyUnshipped = false}, {db}) => ({
 //const product = ({id}, {db}) => db.get("products").getById(id).value()
 const order = ({id}, {db}) => db.get("orders").getById(id).value()
 
-module.exports = { product, products, categories, orders, order}
+module.exports = { product, products, categories, orders, order, productsCategory}

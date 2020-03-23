@@ -3,7 +3,9 @@ and order
 */
 var faker = require("faker");
 //var data = [];
-var categories = ["Watersports", "Soccer", "Chess", "Running"];
+//var categories = ["Watersports", "Soccer", "Chess", "Running"];
+//var categories = ["Furniture", "Home_Deco", "Bed_Bath", "Kitchen_Gadgets", "Cookware", "Cutlery", "Outdoor_Living", "Garden"];
+var categories = ["Furniture", "Bed_Bath", "Kitchen",  "Garden"];
 var products = [];
 faker.seed(100);
 for (let i = 1; i <= 503; i++){

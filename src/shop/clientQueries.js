@@ -2,20 +2,23 @@ import gql from "graphql-tag";
 
 export const categoryList = gql`
     query {categories} `
-    
+
+    // query (..) declare variables and its types
 export const productsList = gql`
-    query( $page: Int, $pageSize: Int, $sort: String) {
-        products  {
+    query(  $page: Int, $pageSize: Int, $sort: String, $category: String) {
+        products(category: $category) {
             totalSize, 
             products(page: $page, pageSize: $pageSize, sort: $sort) {
                 id, name, category, price, description
             }
         }
     }`
-export const productsCategory = gql`
-    query  products($category: String!) {
+
+export const productsList2 = gql`
+    query(  $page: Int, $pageSize: Int, $sort: String) {
         products  {
-            products(category: $category, page: $page, pageSize: $pageSize, sort: $sort) {
+            totalSize, 
+            products(page: $page, pageSize: $pageSize, sort: $sort) {
                 id, name, category, price, description
             }
         }
