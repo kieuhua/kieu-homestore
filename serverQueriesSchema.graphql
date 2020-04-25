@@ -4,11 +4,11 @@ type productPage { totalSize: Int!, products(sort: String, page: Int, pageSize: 
 
 type orderPage {totalSize: Int, orders(sort: String, page: Int, pageSize: Int): [order]}
 
-type productSelection3 {quantity: Int!, product_id: ID!}
+type productSelection {quantity: Int!, product: product}
 
 type order { 
     id: ID!, name: String!, email: String!, address: String!, city: String!,
-    zip: String!, country: String!, shipped: Boolean, products: [productSelection3]
+    zip: String!, country: String!, shipped: Boolean, products: [productSelection]
 }
 
 type Query {

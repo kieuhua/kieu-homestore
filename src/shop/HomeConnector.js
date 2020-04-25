@@ -7,6 +7,7 @@ import {CartDetails} from "./CartDetails"
 import * as CartActions from "../data/CartActionCreators"
 import {Checkout} from "./Checkout"
 import {Thanks} from "./Thanks"
+import {Admin} from "../admin/Admin"
 
 import {HomeStore} from "../data/DataStore"
 
@@ -71,6 +72,7 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
                         <CartDetails {...this.props} {...routeProps} cart={ this.props.newStore} updateCartQuantity={ CartActions.updateCartQuantity}   />  } /> 
                 <Route path="/shop/checkout" render={routeProps => <Checkout newStore={this.props.newStore} {...this.props} {...routeProps } /> } />
                 <Route path="/shop/thanks" render={routeProps => <Thanks {...this.props} {...routeProps } />} />
+                <Route path="/admin" component={Admin} />
                 <Redirect to="/shop/products" />
                     
                 </Router>

@@ -48,6 +48,9 @@ for (let i = 1; i <= 103; i++) {
             quantity: faker.random.number({min: 1, max: 10}),
             product_id: product_ids[j]
         })
+        //console.log("data create; product_id: " + JSON.stringify(order.products[2] ))
+        //data create; product_id: {"quantity":5,"product_id":12}
+
     } 
    orders.push(order);
 } 

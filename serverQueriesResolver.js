@@ -1,60 +1,45 @@
-/* kieu
-    let query = db.get ('products') => is array of all products 
-    so drop() and take() seems to be database functions in json-server ??
-    but I can't find any info about these two methods
-    drop() and take() are not JS array functions
-*/
-//const paginateQuery = (query, page=1, pageSize=5) => {
-const paginateQuery = (query, page=1, pageSize=5) => {
-    //console.log("serverQueriesResolver page, pageSize 4: " + page + ", pageSize: " +pageSize)    
-    //serverQueriesResolver page, pageSize 3: 4, pageSize: 25
-    //serverQueriesResolver page, pageSize 3: 5, pageSize: 25
-    //serverQueriesResolver page, pageSize 3: 1, pageSize: 10
+// this uses in products, not sure ??, return the right page ??
+//const paginateQuery = (query, page=1, pageSize=5) => query.drop((page-1) * pageSize).take(pageSize);
 
-    //console.log("serverQueriesResolver query 5: " + JSON.stringify(query))    // all products
-    //const page2 = page - 1
-    //console.log("serverQueriesResolver page, pageSize 5: " + page + ", pageSize: " +pageSize)    
-    const result = query.drop((page ) * pageSize).take(pageSize);
-   // console.log("serverQueriesResolver result 5: " + JSON.stringify(result))    
+// product(id: ID!): return product 
+//const product = ({id}, {db}) => db.get('products').getById(id).value();
+
+const paginateQuery = (query, page = 1, pageSize = 5) => 
+    query.drop((page - 1) * pageSize).take(pageSize);
+
+//const product = ({id}, {db}) => db.get("products").getById(id).value();
+const product = ({id}, {db}) => {
+	//console.log(" I am in product method") this work, it runs many times
+   const result = db.get("products").getById(id).value()
+    //console.log("serverQueriesResolver 1:" + JSON.stringify(result))
+	//console.log("resolveOrders in product method " + JSON.stringify(result))
+	
     return result
-    //return query.drop((page2 -1) * pageSize).take(pageSize);
+	//return db.get("products").getById(id).value()
 }
 
-const product = ({id}, {db}) => db.get("products").getById(id).value()
 
-/* 
-    if category exist then test RegExp obj, otherwise reture product
-    new RegExp(category, 'i').test(p.category)
-    'furniture', if product is furniture category => t,
-    filter(): if true => product,
+
+/* products(category: String, sort: String, page: Int, pageSize: Int): 
+    return productPage
+    filter() => p if category match p.category (true/false)
+            if category not define then return p(true)
 */
-/* 
-    let query = db.get ('products') => is array of all products 
-*/
-const products = ({category}, {db}) => {
-    let obj = {
+const products = ({category}, {db}) => ({
     totalSize: () => db.get('products')
-        .filter(p => category ? new RegExp(category, 'i').test(p.category) : p )
+        .filter(p => category ? new RegExp(category, 'i').test(p.category) : p)
         .size().value(),
-    products: ({page, pageSize, sort}) => {
-        let query = db.get("products");     // get all products =503
-         // if category define, only query product is matched category
-         if (category) {
-             query = query.filter(item => new RegExp(category, "i").test(item.category))
-         }
-        if (sort) { 
-            query = query.orderBy(sort)        
+    products:({page, pageSize, sort}) => {
+        let query = db.get("products");
+        // if category define, only query product is matched category
+        if (category) {
+            query = query.filter(item => new RegExp(category, "i").test(item.category))
         }
-        //console.log("serverQueriesResolver:products: category: " + category + " page: " + page + ", pageSize: " + pageSize)    
-         return paginateQuery(query, page, pageSize).value()
+        if (sort) { query = query.orderBy(sort)}
+        return paginateQuery(query, page, pageSize).value();
     }
-
-    }
-   // console.log("serverQueriesResolver:products: totalSize: " + obj.totalSize())
-    //console.log("serverQueriesResolver:products: size: " + obj.products())
-    return obj
-}
-
+})
+/* k I don't use this
 const productsCategory= ({category}, {db}) => ({
     
     totalSize: () => {
@@ -85,38 +70,77 @@ const productsCategory= ({category}, {db}) => ({
     
              return paginateQuery(query, page, pageSize).value()
         }
-})
+}) */
 
+// categories: [String]
 const categories = (args, {db}) => db.get('categories').value()
 
-// resolveProductsand() => array of objects used in resolveOrders()
+// these use in orders
+// resolveProducts => an array of quantity of particular product(id) to use in order
+/*
 const resolveProducts = (products, db) => 
     products.map(p => ({
-        quantity: p.quantity,
-        product: product({ id: p.product.id} , {db})
+        quantity: p.quantity, product: product({ id: p.product_id}, {db})
     }))
-// resolveOrders() used in orders
 const resolveOrders = (onlyUnshipped, { page, pageSize, sort}, {db}) => {
-    let query = db.get("orders")
-    if (onlyUnshipped) {}
-    if (sort) {}
+    let query = db.get("orders");
+    if (onlyUnshipped) { query = query.filter({ shipped: false}) }
+    if (sort) { query = query.orderBy(sort) }
     return paginateQuery(query, page, pageSize).value()
-        .map( order => ({ ...order, product: () =>
+        .map(order => ({ ...order, products: () =>
             resolveProducts(order.products, db) }))
- }
-
- /*
-    double conditions
-    o => onlyUnshipped ? o.shipped === false => true => filter take the order
-    if no onlyUnshipped then => order from filter()
- */
+}
+// orders(onlyUnshipped: Boolean): return orderPage
 const orders = ({onlyUnshipped = false}, {db}) => ({
     totalSize: () => db.get("orders")
-        .filter(o => onlyUnshipped ? o.shipped === false : o ).size().value(),
-        orders: (...args) => resolveOrders(onlyUnshipped, ...args)
+        .filter(o => onlyUnshipped ? o.shipped === false : o).size().value(),
+    orders: (...args) => resolveOrders(onlyUnshipped, ...args)
+})
+*/
+const resolveProducts = (products, db) => 
+    products.map(p => ({ 
+        quantity: p.quantity, 
+        product: product({ id: p.product_id} , {db})
+    }))
+
+const resolveOrders = (onlyUnshipped, { page, pageSize, sort}, { db }) => {    
+    let query = db.get("orders");
+    if (onlyUnshipped) { query = query.filter({ shipped: false}) }
+    if (sort) { query = query.orderBy(sort) }    
+    console.log("serverQueriesResolver 2: page: " + page + ", pageSize: " + pageSize + ", sort: " + sort )    
+	//
+    return paginateQuery(query, page, pageSize).value()
+        .map(order => ({ ...order, products: () => 
+            resolveProducts(order.products, db) }));
+	//
+	/*
+	// I can't do this, because most methods calls are async
+  const result = paginateQuery(query, page, pageSize).value()
+    //console.log("resolveOrders: " + JSON.stringify(result))
+    //
+   return result.map( order => ({ ...order, product: () =>
+     resolveProducts(order.products, db) }))
+	   
+     //
+    const result2 = result.map( order => ({ ...order, product: () =>
+     resolveProducts(order.products, db) }))
+    console.log("resolveOrders 2 after resolveProducts: " + JSON.stringify(result2))
+    console.log("I am in the end of resolveOrders")
+     return result2
+	*/
+}
+
+const orders = ({onlyUnshipped = false}, {db}) => ({ 
+    totalSize: () => db.get("orders")
+        .filter(o => onlyUnshipped ? o.shipped === false : o).size().value(),
+    orders: (...args) => resolveOrders(onlyUnshipped, ...args)
 })
 
-//const product = ({id}, {db}) => db.get("products").getById(id).value()
-const order = ({id}, {db}) => db.get("orders").getById(id).value()
+const order = ({id}, {db}) => {
+	console.log("resolver: kieu start" )
+	const result = db.get("orders").getById(id).value()
+	console.log("resolver: kieu " + JSON.stringify(result))
+	return result
+}
 
-module.exports = { product, products, categories, orders, order, productsCategory}
+module.exports = { product, products, categories, orders, order}

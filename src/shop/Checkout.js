@@ -78,7 +78,7 @@ export class Checkout extends Component {
                 <div className="col m-2">
                     <Mutation mutation={this.mutation}>
                         { (saveMutation, {client}) => {
-                        
+                            // I didn't see console.log in ValidatedForm why???
                             return <ValidatedForm
                                 formModel= {this.formModel}     // in constructor just local variable
                                 defaultAttrs = {this.defaultAttrs}
