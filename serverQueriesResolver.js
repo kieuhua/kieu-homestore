@@ -4,8 +4,14 @@
 // product(id: ID!): return product 
 //const product = ({id}, {db}) => db.get('products').getById(id).value();
 
-const paginateQuery = (query, page = 1, pageSize = 5) => 
-    query.drop((page - 1) * pageSize).take(pageSize);
+//const paginateQuery = (query, page = 1, pageSize = 5) => 
+//    query.drop((page - 1) * pageSize).take(pageSize);
+	
+const paginateQuery = (query, page = 1, pageSize = 5) => {
+	    const result = query.drop((page - 1) * pageSize).take(pageSize);
+	    console.log("serverQueriesResolver, paginateQuery: result= " + JSON.stringify(result) ) 
+	    return result
+}
 
 //const product = ({id}, {db}) => db.get("products").getById(id).value();
 const product = ({id}, {db}) => {
@@ -109,13 +115,19 @@ const resolveOrders = (onlyUnshipped, { page, pageSize, sort}, { db }) => {
     if (sort) { query = query.orderBy(sort) }    
     console.log("serverQueriesResolver 2: page: " + page + ", pageSize: " + pageSize + ", sort: " + sort )    
 	//
-    return paginateQuery(query, page, pageSize).value()
-        .map(order => ({ ...order, products: () => 
-            resolveProducts(order.products, db) }));
+    //return paginateQuery(query, page, pageSize).value()
+    //    .map(order => ({ ...order, products: () => 
+     //       resolveProducts(order.products, db) }));
 	//
+     const result = paginateQuery(query, page, pageSize).value()
+         .map(order => ({ ...order, products: () => 
+             resolveProducts(order.products, db) }));
+	 console.log("serverQueriesResolver, resolveOrders: result:" + JSON.stringify(result) )
+	 
+	 return result
 	/*
 	// I can't do this, because most methods calls are async
-  const result = paginateQuery(query, page, pageSize).value()
+	 const result = paginateQuery(query, page, pageSize).value()
     //console.log("resolveOrders: " + JSON.stringify(result))
     //
    return result.map( order => ({ ...order, product: () =>

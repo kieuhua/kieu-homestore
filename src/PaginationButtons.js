@@ -1,15 +1,11 @@
 import React, {Component} from 'react'
 
 export class PaginationButtons extends Component {
-
-    // k this re adjust the page number starting from 1 instead of 0
+    
+    // source
     getPageNumbers = () => {
         if (this.props.pageCount < 4) {
-            /* k you want start page number 1 not 0
-            kwys() => index , then you only take the array start at 1
-            => [1,2,3]
-            */
-            return [...Array(this.props.pageCount + 1).keys()].slice(1);  
+            return [...Array(this.props.pageCount + 1).keys()].slice(1);
         } else if (this.props.currentPage <= 4) {     
             return [1, 2, 3, 4, 5];
         } else  if (this.props.currentPage > this.props.pageCount - 4) {
@@ -25,20 +21,21 @@ export class PaginationButtons extends Component {
             const current = this.props.currentPage;
             const pageCount = this.props.pageCount;
             const navigate = this.props.navigate;
-            
-           // console.log("PaginationButton current: " + current)     // 7
 
+            console.log("PaginationButton current: " + current)     
+           console.log("PaginationButton pageCount: " + pageCount)     
+            
             return <React.Fragment>
             <button onClick={ () => navigate(current - 1)} 
             disabled={current === 1}  className="btn btn-secondary mx-1">Previous</button>
             {/* if current=1, then disable Previous button */}
             {/* if current is greater 4, then generate button='1' and '...'*/}
             { current > 4 &&
-                <>
-                <button className="btn btn-secondary mx-1" 
-                    onClick={ () => navigate(1)}>1</button>
-                <span className="h4">...</span>
-                </>
+                <React.Fragement>
+               <button onClick={() => navigate(1)} 
+                className="btn btn-secondary mx-1" >1</button> 
+                <span>...</span>
+                </React.Fragement>
             }
             {/* if not sure ???*/}
             {this.getPageNumbers().map(num =>
