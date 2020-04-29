@@ -24,11 +24,10 @@ export const ProductsConnector = compose(
             category: vars.category
         })
     }),
-
-    
+ 
     graphql( categoryList, {props: ({data: {categories }}) => ( {categories: categories} ) }),
    
     graphql( productsTotal, {props: ({data: { loading, products }}) => ({
-        totalSize: loading ? 0 : products.totalSize
+        productsTotal: loading ? 0 : products.totalSize
     })})
 ) (HomeConnector)

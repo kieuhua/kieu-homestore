@@ -38,16 +38,16 @@ export class ValidatedForm extends Component {
             }, () => {      // callback
                 if (Object.keys(this.state.validationErrors).length === 0) {
                     // no error, then return each pair of the element and its value into data obj
-                    console.log("ValidatedForm handleSubmit formElements 2: "+ this.formElements["name"] ) 
+                    //console.log("ValidatedForm handleSubmit formElements 2: "+ this.formElements["name"] ) 
                     //ValidatedForm handleSubmit formElements 2: [object HTMLInputElement]
                     //console.log("ValidatedForm handleSubmit formElements 3: "+ this.formElements["name"]["type"])
                     // ValidatedForm handleSubmit formElements 3: text
                     // merge each form item and its value into data object
                      const data =  Object.assign(...Object.entries(this.formElements)
                         .map(e => {
-                            console.log("[e[0]]= " + [e[0]] + " : e[1]= " +e[1].value )
+                            //console.log("[e[0]]= " + [e[0]] + " : e[1]= " +e[1].value )
                             //[e[0]]= email : e[1]= kieu1@example.com
-                            console.log("e[0]= " + e[0] + " : e[1]= " +e[1].value )
+                            //console.log("e[0]= " + e[0] + " : e[1]= " +e[1].value )
                             //e[0]= email : e[1]= kieu1@example.com
                             return {[e[0]]: e[1].value}
                         }))

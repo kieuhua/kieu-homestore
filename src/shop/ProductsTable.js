@@ -23,6 +23,7 @@ export class ProductsTable extends Component {
 
     
     render = () => {
+        //console.log("ProductsTable, productsTotal: " + this.props.productsTotal)
         return <div className="container-fluid">
             <div className="row">
                 <div className="col bg-info App-header-1">
@@ -39,6 +40,7 @@ export class ProductsTable extends Component {
                 </div>
                 <div className="col-9 p-2">
                     <div>
+                    <h4 className="bg-info text-white text-center p-2">{this.props.productsTotal} Products</h4>
                     <PaginationControls keys={["ID", "Name", "Category"]} { ...this.props }/>
                     </div>
 

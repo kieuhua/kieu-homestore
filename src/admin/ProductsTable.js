@@ -5,9 +5,10 @@ import { ProductsRow} from "./ProductsRow"
 
 //.p-2 	 classes that set padding
 export class ProductsTable extends Component {
-    render = () => 
-        <div>
-            <h4 className="by-info text-white text-center p-2">{this.props.totalSize} Products</h4>
+    render = () => {
+        //console.log("ProductsTable: " + this.props.totalSize)
+        return <div>
+            <h4 className="bg-info text-white text-center p-2">{this.props.totalSize} Products</h4>
             <PaginationControls keys={["ID", "Name", "Category"]} { ...this.props} />
             <table className="table table-sm table-stripped">
                 <thead>
@@ -24,4 +25,5 @@ export class ProductsTable extends Component {
                 <Link to="/admin/products/create" className="btn btn-primary">Create Product</Link>
             </div>
         </div>
+    }
 }

@@ -45,6 +45,7 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
         }
 
         render() {
+            // console.log("HomeConnector, productsTotal: " + this.props.productsTotal)
 
             return <div>
                 <Router>
@@ -65,6 +66,7 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
                                 filterProducts(this.props.products, routeProps.match.params.category) 
                                 //this.props.products
                             }
+                            productsTotal = {this.props.productsTotal}
                         />
                     }
                 />
