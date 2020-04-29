@@ -9,8 +9,9 @@ export class CartDetailsRows extends Component {
     }
     render() {
        // console.log("CartDeatilsRows 8: " + JSON.stringify(this.props.newStore.cart)) 
-       if (!this.props.newStore.cart || this.props.newStore.cart.length === 0 ) {  // good for add action
-            return <tr>
+       if (this.props.newStore === undefined || !this.props.newStore.cart || this.props.newStore.cart.length === 0 ) {  // good for add action
+        //console.log("CartDetailsRows, newStore.cart: " + this.props.newStore.cart)    // cart is undefined
+        return <tr>
                 <td>Your cart is empty</td>
            </tr>
         } else { 
@@ -20,8 +21,8 @@ export class CartDetailsRows extends Component {
                             <td><input type="number" value={item.quantity} 
                                 onChange={(ev) => this.handleChange(item.product, ev)} /> </td>
                             <td>{item.product.name}</td>
-                            <td>${item.product.price.toFixed(2)}</td>
-                            <td>${ (item.quantity * item.product.price).toFixed(2)}</td>
+                            <td className="text-right">${item.product.price.toFixed(2)}</td>
+                            <td className="text-right">${ (item.quantity * item.product.price).toFixed(2)}</td>
                             <td><button className="btn btn-sm btn-danger" 
                                 onClick={() => this.props.removeFromCart(item.product)}> remove</button></td>
                         </tr>
@@ -29,7 +30,7 @@ export class CartDetailsRows extends Component {
                 }
                 <tr>
                     <th colSpan="3" className="text-right">Total:</th>
-                    <th colSpan="2">${ this.props.newStore.cartPrice.toFixed(2) }</th>
+                    <th colSpan="2" >${ this.props.newStore.cartPrice.toFixed(2) }</th>
                 </tr>
             </>
         } 

@@ -12,11 +12,11 @@ export class Thanks extends Component {
     render() {
        // console.log("Thanks order: " + JSON.stringify(this.props.order))
         return <div>
-            <div className="col bg-dark text-white">
-                <div className="navbar-brand">HOME STORE</div>
+            <div className="col">
+                <div className="kieu-navbar-brand text-center text-success font-weight-bold App-header">Thank you for shopping</div>
             </div>
-            <div>
-                <h2>Thanks!</h2>
+            <div className="text-center">
+                <h2 className="text-primary">Thanks!</h2>
                 <p>Thanks for placing your order.</p>              
                 <p>We'll ship your goods as soon as possible.</p>
                 <Link to="/shop/products" className="btn btn-primary">Return to Store</Link>

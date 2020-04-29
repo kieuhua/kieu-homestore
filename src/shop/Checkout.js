@@ -70,8 +70,8 @@ export class Checkout extends Component {
        */
        return <div className="container-fluid">
             <div className="row">
-                <div className="col bg-dark text-white">
-                    <div className="navbar-brand"> HOME STORE</div>
+                <div className="col">
+                    <div className="kieu-navbar-brand text-center text-success font-weight-bold App-header">Your Information for Checkout</div>
                 </div>
             </div>
             <div className="row">

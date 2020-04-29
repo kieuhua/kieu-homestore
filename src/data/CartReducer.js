@@ -35,12 +35,16 @@ export const CartReducer = ( storeData, action) => {
             const p = action.payload.product[0]
             const q = action.payload.quantity
 
-            let existing = newStore.cart.find(item => item.product.id === p.id)
+            let existing = undefined
+            if (newStore.cart !== undefined) {
+                existing = newStore.cart.find(item => item.product.id === p.id)
+            } 
             if (existing) {
                 existing.quantity += q
             } else {
                     let product = action.payload.product[0]
                     let quantity = action.payload.quantity
+                    if (newStore.cart === undefined) { newStore.cart = []}
                      newStore.cart.push({product: product, quantity: quantity})
             }
             newStore.cartItems += q;        // good
@@ -66,7 +70,13 @@ export const CartReducer = ( storeData, action) => {
             newStore.cartPrice -= selection.quantity * selection.product.price
             // take out the item in payload = {product}
             newStore.cart = newStore.cart.filter(item => item !== selection)
-            return newStore
+            // this look good the car still have remaining items
+           //console.log("CartReducer, CART_REMOVE: " + JSON.stringify(newStore.cart))
+           /* k this {newStore} cause me a lot of trouble
+                if I retrun newStore  => newStore.cart undefined
+                {newStore} is new object with new info
+           */
+            return {newStore}
             
         case ActionTypes.CART_CLEAR:
             return { cart: [], cartItems: 0, cartPrice: 0}

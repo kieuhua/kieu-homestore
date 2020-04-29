@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { CategoryNavigation} from "./CategoryNavigation"
 import { ProductList} from "./ProductList"
 import {PaginationControls} from "../PaginationControls"
+import {CartSummary} from "./CartSummary"
 
 //const ProductPages = ??
 
@@ -19,8 +20,9 @@ export class Shop extends Component {
         //console.log("Shop history: " + JSON.stringify(history) )
         return <div className="container-fluid">
             <div className="row">
-                <div className="col bg-dark text-white">
-                    <div className="navbar-brand">HOME STORE</div>
+                <div className="col bg-dark text-success">
+                    <div className="navbar-brand">Kieu HOME STORE</div>
+                    <CartSummary {...this.props} />
                 </div>
             </div>
             <div className="row">

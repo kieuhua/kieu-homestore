@@ -4,6 +4,7 @@ import { ProductsRow} from "./ProductsRow";
 import { CategoryNavigation } from "./CategoryNavigation";
 
 import '../App.css'
+import { CartSummary } from "./CartSummary";
 
 //.p-2 	 classes that set padding
 export class ProductsTable extends Component {
@@ -24,8 +25,11 @@ export class ProductsTable extends Component {
     render = () => {
         return <div className="container-fluid">
             <div className="row">
-                <div className="col bg-info App-header">
-                    <div className="kieu-navbar-brand text-success font-weight-bold">Kieu HOME STORE</div>
+                <div className="col bg-info App-header-1">
+                    <div className="kieu-navbar-brand text-success font-weight-bold text-center">Kieu HOME STORE</div>
+                    <div className="float-right">
+                        <CartSummary {...this.props} />
+                    </div>
                 </div>
             </div>
 
