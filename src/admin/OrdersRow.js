@@ -19,7 +19,7 @@ export class OrdersRow extends Component {
         <tr>
             <td>{ this.props.order.id}</td>
             <td>{ this.props.order.name}</td>
-            <td>{ this.props.email}</td>
+            <td>{ this.props.order.email}</td>
             <td className="text-right">${this.calcTotal(this.props.order.products)}</td>
             <td className="text-center">
                 <button onClick={this.props.toggleShipped} className="btn btn-sm-btn-block bg-muted">

@@ -5,13 +5,15 @@ import {GraphQlUrl} from "../data/Urls"
 import { OrdersConnector} from "./OrdersConnector"
 import { Route, Redirect, Switch} from "react-router-dom"
 import { ToggleLink} from "../ToggleLink";
-//import {ConnectedProducts} from "./ProductsConnector"
-//import {ProductEditor} from "./ProductEditor"
-//import {ProductCreator} from "./ProductCreator"
-//import {AuthPrompt} from "../auth/AuthPrompt";
+import {ConnectedProducts} from "./ProductsConnector"
+import {ProductEditor} from "./ProductEditor"
+import {ProductCreator} from "./ProductCreator"
+import {AuthPrompt} from "../auth/AuthPrompt";
 import { authWrapper} from "../auth/AuthWrapper";
 
-// user = "admin" pw= "secret"
+import '../App.css'
+
+// user = "admin" pw= "abc123"
 
 //const graphQlClient = new ApolloClient({ uri: GraphQlUrl});  // ...3500/grahql
 
@@ -33,11 +35,14 @@ export const Admin = authWrapper(class extends Component {
 
     render() {
         //return <ApolloProvider client={graphQlClient}>
+        /* these two paths /admin/products/create and /admin/products/:id should be 
+         before the /admin/products, bc the specific path should be before the general path
+         */
         return <ApolloProvider client={this.client}>
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col bg-info text white"> 
-                        <div className="navbar-brand">Kieu HOME STORE</div>
+                    <div className="col bg-info App-header">
+                        <div className="kieu-navbar-brand text-success font-weight-bold">Kieu HOME STORE</div>
                     </div>
                 </div>
                 <div className="row">
@@ -57,11 +62,14 @@ export const Admin = authWrapper(class extends Component {
                                 and can be used with a Switch to prevent other Route components
                                 from being evaluated */
                             }
-                            {/* !this.props.isAuthenticated && 
-                                <Route component={AuthPrompt} /> */
+                            { !this.props.isAuthenticated && 
+                                <Route component={AuthPrompt} /> 
                             }
+                            <Route path="/admin/products/create" component={ProductCreator} />
+                            <Route path="/admin/products/:id" component={ProductEditor}  />
                             <Route path="/admin/orders" component={OrdersConnector} />
-                            
+                            <Route path="/admin/products" component={ConnectedProducts} />
+                          
                             <Redirect to="/admin/orders"  />
                         </Switch>
                     </div>

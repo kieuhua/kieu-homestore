@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 
-const APP_SECRET = "myappsecret", USERNAME = "admin", PASSWORD = "secret";
+const APP_SECRET = "myappsecret", USERNAME = "admin", PASSWORD = "abc123";
 /*
 adding "/shops/products" don't work, because the request is begin with "/graphql"
 */
@@ -34,7 +34,7 @@ module.exports = function (req, res, next) {
         // this is not good but I don't know enough graph yet to make it right
         
        // console.log("request body 1:" + JSON.stringify(req.body) + ":end")
-        let queryStr = req.body["query"]
+        //let queryStr = req.body["query"]
         //console.log("authMiddleware: query string: " + queryStr)
         next();
     } 

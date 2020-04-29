@@ -3,6 +3,8 @@ import {PaginationControls} from "../PaginationControls";
 import { ProductsRow} from "./ProductsRow";
 import { CategoryNavigation } from "./CategoryNavigation";
 
+import '../App.css'
+
 //.p-2 	 classes that set padding
 export class ProductsTable extends Component {
     
@@ -22,8 +24,8 @@ export class ProductsTable extends Component {
     render = () => {
         return <div className="container-fluid">
             <div className="row">
-                <div className="col bg-info text-white">
-                    <div className="navbar-brand">Kieu HOME STORE</div>
+                <div className="col bg-info App-header">
+                    <div className="kieu-navbar-brand text-success font-weight-bold">Kieu HOME STORE</div>
                 </div>
             </div>
 

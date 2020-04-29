@@ -27,7 +27,7 @@ export const AuthPrompt = withRouter(authWrapper(class extends Component {
         <div className="container-fluid">
             <div className="row">
                 <div className="col bg-dark text-white">
-                    <div className="navbar-brand">SPORTS STORE</div>
+                    <div className="navbar-brand">Password is abc123</div>
                 </div>
             </div>
             <div className="row">
@@ -42,7 +42,7 @@ export const AuthPrompt = withRouter(authWrapper(class extends Component {
                         defaultAttrs= {this.defaultAttrs}
                         submitCallback={this.authenticate}
                         submitText = "Login"
-                        cancelCallback = { () => this.props.history.push("/")}
+                        cancelCallback = { () => this.props.history.push("/shop/products")}
                         cancelText="Cancel"
                     />
                 </div>

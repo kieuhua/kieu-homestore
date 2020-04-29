@@ -9,13 +9,13 @@
 	
 const paginateQuery = (query, page = 1, pageSize = 5) => {
 	    const result = query.drop((page - 1) * pageSize).take(pageSize);
-	    console.log("serverQueriesResolver, paginateQuery: result= " + JSON.stringify(result) ) 
+	    //console.log("serverQueriesResolver, paginateQuery: result= " + JSON.stringify(result) ) 
 	    return result
 }
 
 //const product = ({id}, {db}) => db.get("products").getById(id).value();
 const product = ({id}, {db}) => {
-	//console.log(" I am in product method") this work, it runs many times
+	//console.log(" I am in product method") // this work, it runs many times
    const result = db.get("products").getById(id).value()
     //console.log("serverQueriesResolver 1:" + JSON.stringify(result))
 	//console.log("resolveOrders in product method " + JSON.stringify(result))
@@ -113,7 +113,7 @@ const resolveOrders = (onlyUnshipped, { page, pageSize, sort}, { db }) => {
     let query = db.get("orders");
     if (onlyUnshipped) { query = query.filter({ shipped: false}) }
     if (sort) { query = query.orderBy(sort) }    
-    console.log("serverQueriesResolver 2: page: " + page + ", pageSize: " + pageSize + ", sort: " + sort )    
+    //console.log("serverQueriesResolver 2: page: " + page + ", pageSize: " + pageSize + ", sort: " + sort )    
 	//
     //return paginateQuery(query, page, pageSize).value()
     //    .map(order => ({ ...order, products: () => 
@@ -122,7 +122,7 @@ const resolveOrders = (onlyUnshipped, { page, pageSize, sort}, { db }) => {
      const result = paginateQuery(query, page, pageSize).value()
          .map(order => ({ ...order, products: () => 
              resolveProducts(order.products, db) }));
-	 console.log("serverQueriesResolver, resolveOrders: result:" + JSON.stringify(result) )
+	 //console.log("serverQueriesResolver, resolveOrders: result:" + JSON.stringify(result) )
 	 
 	 return result
 	/*
@@ -149,9 +149,9 @@ const orders = ({onlyUnshipped = false}, {db}) => ({
 })
 
 const order = ({id}, {db}) => {
-	console.log("resolver: kieu start" )
+	//console.log("resolver: kieu start" )
 	const result = db.get("orders").getById(id).value()
-	console.log("resolver: kieu " + JSON.stringify(result))
+	//console.log("resolver: kieu " + JSON.stringify(result))
 	return result
 }
 

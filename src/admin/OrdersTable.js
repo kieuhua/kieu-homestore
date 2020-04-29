@@ -4,9 +4,9 @@ import {PaginationControls} from "../PaginationControls";
 
 export class OrdersTable extends Component {
     render() {
-         console.log("OrdersTable totalSize: " + this.props.totalSize)     // 103
-         console.log("OrdersTable currentPage: " + this.props.currentPage) 
-        console.log("OrdersTable: orders_size: " + this.props.size)
+         //console.log("OrdersTable totalSize: " + this.props.totalSize)     // 103
+         //console.log("OrdersTable currentPage: " + this.props.currentPage) 
+        //console.log("OrdersTable: orders_size: " + this.props.size)
         //console.log("OrdersTable: orders: " + JSON.stringify(this.props.orders) )
 
 		    

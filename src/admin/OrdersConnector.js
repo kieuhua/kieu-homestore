@@ -55,8 +55,8 @@ export const OrdersConnector = compose(
             sortKey: vars.sort,
             setSortProperty: (key) => {vars.sort = key; refetch(vars)},
             }
-            console.log("OrdersConnector: totalSize: " + result.totalSize)
-            console.log("OrdersConnector: result: " + JSON.stringify(result))
+            //console.log("OrdersConnector: totalSize: " + result.totalSize)
+            //console.log("OrdersConnector: result: " + JSON.stringify(result))
             if (result === null) {
                 console.log("kieu null result, OrdersConnector, props: result is null")
             }
