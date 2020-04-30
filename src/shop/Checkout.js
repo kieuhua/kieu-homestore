@@ -84,9 +84,24 @@ export class Checkout extends Component {
                                 defaultAttrs = {this.defaultAttrs}
                                 submitCallback = { data => {
                                     //const data_1 = this.convertData(data)
-                                   const result = saveMutation({variables: { order:  data }})
-                                   console.log("Checkout 1: " + JSON.stringify(result ))
-                                    this.navigate()
+                                    // data = {}, bc submitCallback async ??
+                                   console.log("Checkout 1: " + JSON.stringify(data ))
+                                   //Checkout 1: {"name":"Kieu Hua","email":"kieu.hua@gmail.com","address":"77 Strawberry Hill Road","city":
+                                   //"Acton","zip":"01720","country":"United States"}
+                                  // let newProducts = {products: [{quantity: 1, product_id: 4}]}
+                                   //let newProducts = {products: [ ]}
+                                   //let newOrder = {...data, newProducts }
+                                   //let newOrder = {...data, newProducts }
+                                  // const result = saveMutation({variables: { order:  data }})
+                                 // let newOrder = { name: "kieu10", email: "kieu10@example.com", address: "777 apple", 
+                                 // city: "acton", zip: "92345", country: "USA", shipped: false, 
+                                  //products: [ {quantity:3, product_id: 40}]}
+
+                                  //const result = saveMutation({variables: { order:  newOrder }})
+                                   const result = saveMutation({ order:  data })
+                                   // it is async, so I don't see checkout 2
+                                   console.log("Checkout 2: " + JSON.stringify(result ))
+                                    this.navigate()     // re-render the admin orders list   
                                 }}
                                 cancelCallback = {this.handleCancel}
                                 submitText = "Place Order"

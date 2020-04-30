@@ -16,7 +16,11 @@ export const ProductsConnector = compose(
             products: loading ? [] : products.products,
             currentPage: vars.page,
             pageCount: loading ? 0 : Math.ceil(products.totalSize / vars.pageSize),
-            navigateToPage: (page) => { vars.page = page; refetch(vars)},
+            navigateToPage: (page) => { 
+                vars.page = page; 
+                console.log("ProductsConnector, navigateToPage, page: " + page)
+                refetch(vars)
+            },
             pageSize: vars.pageSize,
             setPageSize: (size) => { vars.pageSize = Number(size); refetch(vars)},
             sortKey: vars.sort,

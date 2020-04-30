@@ -28,7 +28,7 @@ export const OrdersConnector = compose(
                 console.log("Kieu refetch OrdersConnector: errors: " + JSON.stringify(error))   // no errors
                console.log("OrdersConnector: has error vars" + JSON.stringify(vars))
                console.log("OrdersConnector: has error, networkStatus: " + JSON.stringify(networkStatus))
-               console.log("OrdersConnector, orders, in error:" + JSON.stringify(orders))
+               //console.log("OrdersConnector, orders, in error:" + JSON.stringify(orders))
                 refetch(vars)
             }
             

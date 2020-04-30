@@ -22,20 +22,21 @@ export class PaginationButtons extends Component {
             const pageCount = this.props.pageCount;
             const navigate = this.props.navigate;
 
-            //console.log("PaginationButton current: " + current)     
-           //console.log("PaginationButton pageCount: " + pageCount)     
+            console.log("PaginationButton current: " + current)     
+           console.log("PaginationButton pageCount: " + pageCount)     
             
             return <React.Fragment>
+            {/* if current=1, then disable Previous button */}
             <button onClick={ () => navigate(current - 1)} 
             disabled={current === 1}  className="btn btn-secondary mx-1">Previous</button>
-            {/* if current=1, then disable Previous button */}
+            
             {/* if current is greater 4, then generate button='1' and '...'*/}
-            { current > 4 &&
+            { /*current > 4 &&
                 <React.Fragement>
                <button onClick={() => navigate(1)} 
                 className="btn btn-secondary mx-1" >1</button> 
                 <span>...</span>
-                </React.Fragement>
+                </React.Fragement> */
             }
             {/* if not sure ???*/}
             {this.getPageNumbers().map(num =>
