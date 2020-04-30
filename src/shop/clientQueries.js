@@ -32,3 +32,4 @@ export const product = gql`
     }`
 
 export const productsTotal = gql` query {products {totalSize} }`
+

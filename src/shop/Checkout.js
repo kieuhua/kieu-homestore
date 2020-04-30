@@ -95,13 +95,20 @@ export class Checkout extends Component {
                                   // const result = saveMutation({variables: { order:  data }})
                                  // let newOrder = { name: "kieu10", email: "kieu10@example.com", address: "777 apple", 
                                  // city: "acton", zip: "92345", country: "USA", shipped: false, 
-                                  //products: [ {quantity:3, product_id: 40}]}
+                                  //let newProducts = [ {quantity: 33, product_id: 40}]
+                                  //const order = {...formData, 
+                                   let newProducts = this.props.newStore.cart.map(item => ({ quantity: Number(item.quantity), product_id: Number(item.product.id) })) 
+                                   console.log("Checkout, submit, newProducts: " + JSON.stringify(newProducts))
 
-                                  //const result = saveMutation({variables: { order:  newOrder }})
-                                   const result = saveMutation({ order:  data })
+                                    //saveMutation({variables: { product: {...data, price: Number(data.price) }}});
+                                            //const result = saveMutation({variables: { order:  newOrder }})
+                                   const result = saveMutation( {variables: {order:  {...data, products: newProducts }}} )
                                    // it is async, so I don't see checkout 2
+
+                                   // k need to clear the cart here
+                                   this.props.clearCart()
                                    console.log("Checkout 2: " + JSON.stringify(result ))
-                                    this.navigate()     // re-render the admin orders list   
+                                    this.navigate()     // re-render list   
                                 }}
                                 cancelCallback = {this.handleCancel}
                                 submitText = "Place Order"
