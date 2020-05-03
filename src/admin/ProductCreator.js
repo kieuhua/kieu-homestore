@@ -27,7 +27,11 @@ export class ProductCreator extends Component {
         }
     }
 
-    navigate = () => this.props.history.push("/admin/products");
+    navigate = () => {
+        console.log("ProductCreator, navigate, path: ", this.props.path) // undefine
+        console.log("ProductCreator, navigate, match: ", this.props.match.params) // {id: 5 }
+        this.props.history.push("/admin/products");
+    }
 
     /* the result from Mutation is in childern, called render component pattern
     so saveMuation and {client} are result from Mutation query 

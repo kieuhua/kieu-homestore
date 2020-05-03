@@ -35,6 +35,9 @@ const products = ({category}, {db}) => ({
     totalSize: () => db.get('products')
         .filter(p => category ? new RegExp(category, 'i').test(p.category) : p)
         .size().value(),
+   
+    productsAllSize: () => db.get('products').size().value(),
+
     products:({page, pageSize, sort}) => {
         let query = db.get("products");
         // if category define, only query product is matched category
@@ -43,7 +46,7 @@ const products = ({category}, {db}) => ({
         }
         if (sort) { query = query.orderBy(sort)}
         return paginateQuery(query, page, pageSize).value();
-    }
+    },
 })
 /* k I don't use this
 const productsCategory= ({category}, {db}) => ({
@@ -78,8 +81,13 @@ const productsCategory= ({category}, {db}) => ({
         }
 }) */
 
-// categories: [String]
+/* categories: [String]
+const categories = (args, {db}) => ({
+    //totalSize: db.get('categories').value().size(),
+    products: db.get('categories').value()
+}) */
 const categories = (args, {db}) => db.get('categories').value()
+
 
 // these use in orders
 // resolveProducts => an array of quantity of particular product(id) to use in order
@@ -156,3 +164,4 @@ const order = ({id}, {db}) => {
 }
 
 module.exports = { product, products, categories, orders, order}
+//module.exports = { product, products, orders, order}

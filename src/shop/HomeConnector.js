@@ -50,12 +50,37 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
             return <div>
                 <Router>
                 <Route path="/shop/products/:category?"
-                    render={(routeProps) => 
-                        <ProductsTable {...this.props} {...routeProps}  navigateToPage= {this.props.navigateToPage}
+                    render={(routeProps) => {
+                        //k I don't have products("category"),
+                        // I only have the products in this current page, totalSize = 10, CategorySize = 503
+                        // bc when I change category, it doesn't go to refech it, so CategorySize is still same
+                        
+                        // one more thing the this.props.productds continue the same, 10 products of all catories,
+                        // for each category, it just filter to get the products for that category
+                        // get undefined first, then "bed_bath"
+                        console.log("HomeConnector, category, kieu : " + routeProps.match.params.category) // undefined here
+                        this.props.navigateToCategory(routeProps.match.params.category)   // this gives bad buttons
+
+                        //k it is better to filter all products on clients side
+                        // however when the users change pageSize, and sort may not work
+                        // but I can try them anyway
+                    
+                        console.log("HomeConnector, pageCount: " + this.props.pageCount)
+                        console.log("HomeConnector, productsAllSize: " + this.props.productsAllSize)
+                        console.log("HomeConnector, products: " + JSON.stringify(this.props.products))  // give me 10 products, pageSize
+                        const totalSize = filterProducts(this.props.products, routeProps.match.params.category).length 
+                        // totalSize is number of products in this current page, <= pageSize
+                        console.log("HomeConnector, totalSize: " + totalSize)   
+                        
+                        // now need to set the productsTotal
+                        const productsTotal = routeProps.match.params.category ? this.props.productsTotal : this.props.productsAllSize
+                        return <ProductsTable {...this.props} {...routeProps}  navigateToPage= {this.props.navigateToPage}
                             pageCount={
                                 //k now I understand the this.props.products is just one page from result of graphql
-                               // Math.ceil(filterProducts(this.props.products, routeProps.match.params.category).length / this.props.pageSize)
+                               //Math.ceil(filterProducts(this.props.products, routeProps.match.params.category).length / this.props.pageSize)
                                 //Math.ceil(this.props.products.length / this.props.pageSize)  give me one page
+                                //this.props.totalSize/ this.props.pageSize
+                               // filterProducts(this.props.products, routeProps.match.params.category).length 
                                 this.props.pageCount
                             } 
                             addToCart = {this.addToCart}
@@ -66,8 +91,9 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
                                 filterProducts(this.props.products, routeProps.match.params.category) 
                                 //this.props.products
                             }
-                            productsTotal = {this.props.productsTotal}
+                            productsTotal = {productsTotal}
                         />
+                        }
                     }
                 />
                 <Route path="/shop/cart" render= {(routeProps) => 

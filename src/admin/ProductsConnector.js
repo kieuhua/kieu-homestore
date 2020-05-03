@@ -4,6 +4,7 @@ import { ProductsTable} from "./ProductsTable"
 import {productsList} from "./clientQueries"
 import {deleteProduct} from "./clientMutations"
 
+
 const vars = { page: 1, pageSize: 10, sort: "id"}
 
 // graphql(queryname, config obj)
@@ -18,6 +19,7 @@ export const ConnectedProducts = compose(
         options: (props) => ({variables: vars}),
         props: ({ data: {loading, products, refetch}}) => ({
             totalSize: loading ? 0 : products.totalSize,
+            productsAllSize: loading ? 0 : products.productsAllSize,
             products: loading ? [] : products.products,
             currentPage: vars.page,
             pageCount: loading ? 0 : Math.ceil(products.totalSize / vars.pageSize),
@@ -41,7 +43,9 @@ export const ConnectedProducts = compose(
         props: ({mutate}) => ({
             deleteProduct: (id) => {
                 console.log("ProductsConnector, deleteProduct, id: " + id)
-                return mutate({variables: {id}})
+                const result = mutate({variables: {id}})
+
+                return result
             }
         })
     })

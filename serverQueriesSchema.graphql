@@ -1,6 +1,6 @@
 type product { id: ID!, name: String!, description: String!, category: String!, price: Float!}
 
-type productPage { totalSize: Int!, products(sort: String, page: Int, pageSize: Int): [product]}
+type productPage { totalSize: Int!, productsAllSize: Int!, products(sort: String, page: Int, pageSize: Int): [product]}
 
 type orderPage {totalSize: Int, orders(sort: String, page: Int, pageSize: Int): [order]}
 
@@ -17,6 +17,7 @@ type Query {
     categories: [String]
     orders(onlyUnshipped: Boolean): orderPage
     productsTotal: Int
+    categoryTotal: Int
     order(id: ID!): order
     productsCategory(category: String, sort:String, page: Int, pageSize: Int): productPage
 }

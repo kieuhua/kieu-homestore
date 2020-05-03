@@ -8,6 +8,7 @@ export const productsList = gql`
     query(  $page: Int, $pageSize: Int, $sort: String, $category: String) {
         products(category: $category) {
             totalSize, 
+            productsAllSize,
             products(page: $page, pageSize: $pageSize, sort: $sort) {
                 id, name, category, price, description
             }
@@ -32,4 +33,6 @@ export const product = gql`
     }`
 
 export const productsTotal = gql` query {products {totalSize} }`
+
+export const categoryTotal = gql` query($category: String!) {products(category: $category) {totalSize} }`
 
