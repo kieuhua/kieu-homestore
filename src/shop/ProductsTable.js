@@ -25,6 +25,7 @@ export class ProductsTable extends Component {
     render = () => {
         //console.log("ProductsTable, productsTotal: " + this.props.productsTotal)
         console.log("ProductsTable, categoryTotal: " + this.props.categoryTotal)
+        const productsSize = this.props.category ? this.props.categoryTotal : this.props.productsAllSize
         return <div className="container-fluid">
             <div className="row">
                 <div className="col bg-info App-header-1">
@@ -41,7 +42,7 @@ export class ProductsTable extends Component {
                 </div>
                 <div className="col-9 p-2">
                     <div>
-                    <h4 className="bg-info text-white text-center p-2">{this.props.categoryTotal} Products</h4>
+                    <h4 className="bg-info text-white text-center p-2">{productsSize} Products</h4>
                     <PaginationControls keys={["ID", "Name", "Category"]} { ...this.props }/>
                     </div>
 

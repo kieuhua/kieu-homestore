@@ -44,7 +44,7 @@ export const ConnectedProducts = compose(
             deleteProduct: (id) => {
                 console.log("ProductsConnector, deleteProduct, id: " + id)
                 const result = mutate({variables: {id}})
-
+                //this.props.history.push("/admin/products") // this didn't re-render "/admin/products"
                 return result
             }
         })
