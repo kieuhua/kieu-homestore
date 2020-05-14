@@ -25,11 +25,11 @@ export const ProductsConnector = compose(
             pageCount: loading ? 0 : Math.ceil(products.totalSize / vars.pageSize),
             navigateToPage: (page) => { 
                 vars.page = page; 
-                console.log("ProductsConnector, navigateToPage, page: " + page)
+                //console.log("ProductsConnector, navigateToPage, page: " + page)
                 refetch(vars)
             },
             navigateToCategory: (category) => {
-                console.log("ProductsConnector, category k: " + category)   // I got undefined
+                //console.log("ProductsConnector, category k: " + category)   // I got undefined
                 vars.category = category
                 refetch(vars)
             },
@@ -50,7 +50,7 @@ export const ProductsConnector = compose(
     graphql( categoryTotal, {
         options: (props) => {
             // category = beb_bath
-            console.log("ProductsConnector, categoryTotal, vars.category", vars.category)
+            //console.log("ProductsConnector, categoryTotal, vars.category", vars.category)
             if (vars.category === undefined) { vars.category = "All"}
             return { variables: {category: vars.category }}
         } ,

@@ -5,13 +5,14 @@ export class CartSummary extends Component {
     getSummary = () => {
         if ( this.props.newStore !== undefined &&  this.props.newStore.cartItems > 0 ) {
         // if ( this.props.newStore.cartItems > 0 ) { => TypeError: Cannot read property 'cartItems' of undefined
-            //console.log("CartSummary, cartItems: " + this.props.newStore.cartItems)
+            console.log("CartSummary, cartItems: " + this.props.newStore.cartItems)
             return <span className="text-dark">
                 {this.props.newStore.ComponentcartItems} item(s),
                 ${this.props.newStore.cartPrice.toFixed(2)}
                 <span>  </span>
             </span>
         } else {
+            console.log("CartSummar, cart is empty, ")
             return <span className="text-dark">Your cart: (empty) </span>
         }
     }
@@ -24,6 +25,10 @@ export class CartSummary extends Component {
             ${(this.props.newStore === undefined || this.props.newStore.cartItems === 0) ? "disabled" : "" }`
     }
     render() {
+        if (this.props.newStore !== undefined) {
+            console.log("CartSummary, cartItems: " + this.props.newStore.cartItems)
+           // CartSummary, cartItems: NaN
+        }
         return <div className="float-right">
             <small>
                 {this.getSummary()}

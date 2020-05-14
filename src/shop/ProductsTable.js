@@ -24,7 +24,7 @@ export class ProductsTable extends Component {
     
     render = () => {
         //console.log("ProductsTable, productsTotal: " + this.props.productsTotal)
-        console.log("ProductsTable, categoryTotal: " + this.props.categoryTotal)
+        //console.log("ProductsTable, categoryTotal: " + this.props.categoryTotal)
         const productsSize = this.props.category ? this.props.categoryTotal : this.props.productsAllSize
         return <div className="container-fluid">
             <div className="row">

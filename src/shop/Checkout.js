@@ -106,7 +106,8 @@ export class Checkout extends Component {
                                    // it is async, so I don't see checkout 2
 
                                    // k need to clear the cart here
-                                   this.props.clearCart()
+                                   //k 5_14_20 this is not working
+                                   this.props.clearCart()  
                                    console.log("Checkout 2: " + JSON.stringify(result ))
                                     this.navigate()     // re-render list   
                                 }}

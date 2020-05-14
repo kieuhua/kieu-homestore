@@ -58,19 +58,19 @@ export const HomeConnector = connect(mapStateToProps, mapDispatchToProps) (
                         // one more thing the this.props.productds continue the same, 10 products of all catories,
                         // for each category, it just filter to get the products for that category
                         // get undefined first, then "bed_bath"
-                        console.log("HomeConnector, category, kieu : " + routeProps.match.params.category) // undefined here
+                        //console.log("HomeConnector, category, kieu : " + routeProps.match.params.category) // undefined here
                         this.props.navigateToCategory(routeProps.match.params.category)   // this gives bad buttons
 
                         //k it is better to filter all products on clients side
                         // however when the users change pageSize, and sort may not work
                         // but I can try them anyway
                     
-                        console.log("HomeConnector, pageCount: " + this.props.pageCount)
-                        console.log("HomeConnector, productsAllSize: " + this.props.productsAllSize)
-                        console.log("HomeConnector, products: " + JSON.stringify(this.props.products))  // give me 10 products, pageSize
+                        //console.log("HomeConnector, pageCount: " + this.props.pageCount)
+                        //console.log("HomeConnector, productsAllSize: " + this.props.productsAllSize)
+                        //console.log("HomeConnector, products: " + JSON.stringify(this.props.products))  // give me 10 products, pageSize
                         const totalSize = filterProducts(this.props.products, routeProps.match.params.category).length 
                         // totalSize is number of products in this current page, <= pageSize
-                        console.log("HomeConnector, totalSize: " + totalSize)   
+                        //console.log("HomeConnector, totalSize: " + totalSize)   
                         
                         // now need to set the productsTotal
                         const productsTotal = routeProps.match.params.category ? this.props.productsTotal : this.props.productsAllSize

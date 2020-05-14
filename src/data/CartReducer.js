@@ -79,7 +79,12 @@ export const CartReducer = ( storeData, action) => {
             return {newStore}
             
         case ActionTypes.CART_CLEAR:
-            return { cart: [], cartItems: 0, cartPrice: 0}
+            console.log("CartReducer, CART_CLEAR ")
+            // return { cart: [], cartItems: 0, cartPrice: 0}
+            newStore.cart = []
+            newStore.cartItems = 0
+            newStore.cartPrice = 0
+            return { newStore}
         default:
             // just return empty  storeData
             return {}
