@@ -10,8 +10,15 @@
     "apollo-boost": "^0.4.7",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "chokidar": "^3.4.0",
+    "connect-history-api-fallback": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
     "faker": "^4.1.0",
     "graphql": "^14.6.0",
+    "json-server": "^0.16.1",
+    "jsonwebtoken": "^8.5.1",
     "lodash.flowright": "^3.5.0",
     "npm-run-all": "^4.1.5",
     "react": "^16.12.0",
@@ -46,13 +53,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "chokidar": "^3.3.1",
-    "connect-history-api-fallback": "^1.6.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-graphql": "^0.9.0",
-    "json-server": "^0.15.1",
-    "jsonwebtoken": "^8.5.1"
-  }
+  "devDependencies": {}
 }
